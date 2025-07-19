@@ -201,7 +201,7 @@ function Skills() {
                 className="custom-progress w-full"
                 percent={skill.progress}
                 status="active"
-                strokeColor={skill.color}
+                strokeColor={"#13c2c2"}
                 trailColor="#333333"
               />
             </Flex>

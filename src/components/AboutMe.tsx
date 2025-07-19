@@ -42,7 +42,7 @@ const paragraphs = [
   "I'm Saiful, a frontend developer with a passion for creating clean, efficient, and user-driven designs. I specialize in building responsive, interactive websites and apps with React, Next.js, and TailwindCSS.",
   "I focus on turning complex problems into seamless user experiences, always committed to clean, maintainable code.",
   "Beyond coding, I explore motion design, refine product strategies, and push the boundaries of frontend development to create impactful digital experiences.",
-];
+]; 
 
 export default function AboutMe() {
   const sectionRef = useRef<HTMLDivElement>(null);

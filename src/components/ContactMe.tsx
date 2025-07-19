@@ -166,7 +166,7 @@ function ContactMe() {
       {contextHolder}
       {/* Section Title */}
       <div className="text-center mb-16">
-        <h1 className="contact-heading text-3xl md:text-4xl mb-4 font-bold text-gray-200">
+        <h1 className="contact-heading text-3xl md:text-4xl mb-4 font-bold  text-[#13c2c2]">
           Contact Me
         </h1>
         <p className="contact-subheading text-center text-gray-200 mt-2">

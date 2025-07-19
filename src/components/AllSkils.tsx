@@ -93,7 +93,7 @@ const getItems: (panelStyle: CSSProperties) => CollapseProps["items"] = (
     ),
     style: panelStyle,
   },
-];
+]; 
 
 const AllSkils: React.FC = () => {
   const panelStyle: CSSProperties = {

@@ -24,7 +24,7 @@ export default function HeroSection() {
         duration: 1,
       })
         .from(
-          q(".hero-subtext"), 
+          q(".hero-subtext"),
           {
             y: 35,
             scale: 0.95,
@@ -68,16 +68,16 @@ export default function HeroSection() {
       const pills = sectionRef.current?.querySelectorAll(".pill");
       pills?.forEach((pill) => {
         gsap.to(pill, {
-          x: `+=${gsap.utils.random(-30, 30)}`, // ডানে-বামে বেশি random মুভ
-          y: `+=${gsap.utils.random(-20, 20)}`, // উপরে-নিচে random মুভ
-          rotation: gsap.utils.random(-15, 15), // হালকা ঘুরবে
-          scale: gsap.utils.random(0.85, 1.25), // ছোট-বড় হবে
+          x: `+=${gsap.utils.random(-60, 60)}`, // ডানে-বামে বেশি random মুভ
+          y: `+=${gsap.utils.random(-40, 40)}`, // উপরে-নিচে random মুভ
+          rotation: gsap.utils.random(-35, 35), // হালকা ঘুরবে
+          scale: gsap.utils.random(0.65, 1.25), // ছোট-বড় হবে
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
           duration: gsap.utils.random(4, 7), // ধীর natural মুভমেন্ট
           delay: gsap.utils.random(0, 2),
-          opacity: gsap.utils.random(0.8, 1),
+          opacity: gsap.utils.random(0.5, 1),
         });
       });
     },
@@ -127,14 +127,14 @@ export default function HeroSection() {
       <div className="scroll-indicator mt-6  flex flex-col items-center text-gray-400">
         <span className="text-sm">Scroll</span>
         <ArrowDownOutlined className="text-xl mt-1" />
-      </div> 
+      </div>
 
       {/* Tech Stack Floating Pills */}
       <div className="tech-pills absolute w-full h-full pointer-events-none">
-        <span className="pill absolute top-20 left-8">React</span>
-      <span className="pill absolute top-25 right-10">Next.js</span>
-        <span className="pill absolute bottom-40 left-10">TailwindCSS</span>
-        <span className="pill absolute bottom-30 right-20">GSAP</span>
+        <span className="pill absolute top-20 left-20">React</span>
+        <span className="pill absolute top-20 right-20">Next.js</span>
+        <span className="pill absolute bottom-40 left-20">TailwindCSS</span>
+        <span className="pill absolute bottom-40 right-20">GSAP</span>
       </div>
     </section>
   );
