@@ -14,39 +14,41 @@ export default function HeroSection() {
     () => {
       const q = gsap.utils.selector(sectionRef);
 
+      // ✅ শুরুতেই সব elements লুকিয়ে দাও (No Flash)
+      gsap.set([q(".hero-heading"), q(".hero-subtext"), q(".hero-btns > *")], {
+        autoAlpha: 0,
+        y: 40,
+      });
+
+      // ✅ Smooth Entry Animation
       const tl = gsap.timeline({ defaults: { ease: "back.out(1.7)" } });
 
-      // Entry Animation
-      tl.from(q(".hero-heading"), {
-        y: 60,
-        scale: 0.95,
-        autoAlpha: 0,
+      tl.to(q(".hero-heading"), {
+        autoAlpha: 1,
+        y: 0,
         duration: 1,
       })
-        .from(
+        .to(
           q(".hero-subtext"),
           {
-            y: 35,
-            scale: 0.95,
-            autoAlpha: 0,
+            autoAlpha: 1,
+            y: 0,
             duration: 0.7,
           },
           "-=0.6"
         )
-        .from(
+        .to(
           q(".hero-btns > *"),
           {
-            y: 20,
-            scale: 0.9,
-            autoAlpha: 0,
+            autoAlpha: 1,
+            y: 0,
             duration: 0.4,
             stagger: 0.1,
-            clearProps: "all",
           },
-          "-=0.9"
+          "-=0.5"
         );
 
-      // Scroll Indicator bounce animation
+      // ✅ Scroll Indicator bounce animation
       gsap.to(q(".scroll-indicator"), {
         y: 10,
         repeat: -1,
@@ -55,31 +57,34 @@ export default function HeroSection() {
         duration: 1,
       });
 
-      // Hover Parallax
+      // ✅ Hover Parallax
       const handleMove = (e: MouseEvent) => {
         const x = (e.clientX - window.innerWidth / 2) * 0.02;
         const y = (e.clientY - window.innerHeight / 2) * 0.02;
         gsap.to(q(".hero-heading"), { x, y, duration: 0.3 });
       };
-
       sectionRef.current?.addEventListener("mousemove", handleMove);
 
-      // Floating Pills Animation (More Natural Random Floating)
+      // ✅ Floating Pills Animation
       const pills = sectionRef.current?.querySelectorAll(".pill");
-      pills?.forEach((pill) => {
-        gsap.to(pill, {
-          x: `+=${gsap.utils.random(-30, 30)}`, // ডানে-বামে বেশি random মুভ
-          y: `+=${gsap.utils.random(-20, 20)}`, // উপরে-নিচে random মুভ
-          rotation: gsap.utils.random(-15, 15), // হালকা ঘুরবে
-          scale: gsap.utils.random(0.85, 1.25), // ছোট-বড় হবে
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          duration: gsap.utils.random(4, 7), // ধীর natural মুভমেন্ট
-          delay: gsap.utils.random(0, 2),
-          opacity: gsap.utils.random(0.8, 1),
+
+      if (pills && pills.length > 0) {
+        pills.forEach((pill) => {
+          gsap.to(pill, {
+            autoAlpha: 1,
+            x: `+=${gsap.utils.random(-30, 30)}`,
+            y: `+=${gsap.utils.random(-20, 20)}`,
+            rotation: gsap.utils.random(-15, 15),
+            scale: gsap.utils.random(0.85, 1.25),
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            duration: gsap.utils.random(4, 7),
+            delay: gsap.utils.random(0, 2),
+            opacity: gsap.utils.random(0.8, 1),
+          });
         });
-      });
+      }
     },
     { scope: sectionRef }
   );
@@ -87,9 +92,9 @@ export default function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 sm:mt-8"
+      className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 sm:mt-8 bg-[#000c0c]"
     >
-      {/* Main Heading */}
+      {/* ✅ Main Heading */}
       <h1 className="hero-heading text-3xl sm:text-4xl md:text-6xl font-bold text-gray-100 leading-tight max-w-4xl mx-auto">
         Hi, I&apos;m <span className="text-blue-500">Saiful</span> — a frontend
         developer crafting
@@ -98,13 +103,13 @@ export default function HeroSection() {
         </span>
       </h1>
 
-      {/* Sub Text */}
+      {/* ✅ Sub Text */}
       <p className="hero-subtext text-gray-300 mt-4 text-base sm:text-lg md:text-xl max-w-2xl">
         I specialize in building fast, responsive, and user-friendly web
         applications with clean, maintainable code and modern UI libraries.
       </p>
 
-      {/* Buttons */}
+      {/* ✅ Buttons */}
       <div className="hero-btns flex gap-4 md:gap-8 mt-12 flex-wrap justify-center">
         <Button
           type="primary"
@@ -123,16 +128,16 @@ export default function HeroSection() {
         </Button>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="scroll-indicator mt-6  flex flex-col items-center text-gray-400">
+      {/* ✅ Scroll Indicator */}
+      <div className="scroll-indicator mt-6 flex flex-col items-center text-gray-400">
         <span className="text-sm">Scroll</span>
         <ArrowDownOutlined className="text-xl mt-1" />
-      </div> 
+      </div>
 
-      {/* Tech Stack Floating Pills */}
+      {/* ✅ Tech Stack Floating Pills */}
       <div className="tech-pills absolute w-full h-full pointer-events-none">
         <span className="pill absolute top-20 left-8">React</span>
-      <span className="pill absolute top-25 right-10">Next.js</span>
+        <span className="pill absolute top-25 right-10">Next.js</span>
         <span className="pill absolute bottom-40 left-10">TailwindCSS</span>
         <span className="pill absolute bottom-30 right-20">GSAP</span>
       </div>
