@@ -131,7 +131,7 @@ export default function CustomFooter() {
             target="_blank"
             className="text-blue-500 font-medium ml-1"
           >
-            DevArif
+            DevSaiful
           </Link>{" "}
           সর্বস্বত্ব সংরক্ষিত
         </p>
