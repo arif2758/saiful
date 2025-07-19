@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      new URL("https://res.cloudinary.com/tanjumart/**"),
+      new URL("https://img.heroui.chat/image/avatar?w=100&h=100&u=2"),
+    ],
+  },
 };
 
 export default nextConfig;

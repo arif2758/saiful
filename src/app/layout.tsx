@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+import "@ant-design/v5-patch-for-react-19";
+import Navbar from "@/components/Navbar";
+import CustomFooter from "@/components/CustomFooter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +31,23 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="fixed top-0 left-0 w-full  h-full object-cover -z-10"
+        >
+          <source src="/space-bg.mp4" type="video/mp4" />
+        </video>
+
+        <AntdRegistry>
+          <Navbar />
+
+          {children}
+
+          <CustomFooter />
+        </AntdRegistry>
       </body>
     </html>
   );
