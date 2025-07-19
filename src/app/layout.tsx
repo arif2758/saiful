@@ -20,9 +20,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
   ),
-  title: "Saiful Islam | Frontend Developer & UI/UX Enthusiast",
+  title: "Saiful Islam | Frontend Developer",
   description:
-    "Saiful Islam is a passionate Frontend Developer specializing in React, Next.js, and TailwindCSS. Explore modern, responsive, and performance-optimized web solutions with a focus on clean UI/UX design.",
+    "Saiful Islam is a passionate Frontend Developer specializing in React, Next.js, and TailwindCSS. Explore modern, responsive, and performance-optimized web solutions.",
   keywords: [
     "Saiful Islam",
     "Frontend Developer",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Saiful Islam | Frontend Developer & UI/UX Enthusiast",
+    title: "Saiful Islam | Frontend Developer",
     description:
       "Explore Saiful Islam's portfolio featuring cutting-edge frontend projects, responsive designs, and performance-focused web apps built with React & Next.js.",
     url: process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
@@ -90,8 +90,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-
-        
         <video
           autoPlay
           muted
