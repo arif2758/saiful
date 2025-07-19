@@ -1,13 +1,9 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { Avatar } from "antd";
 import Image from "next/image";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const testimonials = [
   {
@@ -34,138 +30,67 @@ const testimonials = [
     image:
       "https://res.cloudinary.com/tanjumart/image/upload/v1752058912/logo-padma-fishing-net_j2nlbu.png",
   },
-  {
-    name: "Emily Carter",
-    role: "Head of Marketing, BrightIdeas Co.",
-    feedback:
-      "A truly exceptional developer! His understanding of UX and modern standards helped us launch a beautiful, fast website.",
-    image:
-      "https://res.cloudinary.com/tanjumart/image/upload/v1750829859/ts_u8kbw9.svg",
-  },
-  {
-    name: "Michael Brown",
-    role: "Founder, Startup Hub",
-    feedback:
-      "He listened carefully, provided great input, and delivered a fast-loading website. Would definitely work with him again!",
-    image:
-      "https://res.cloudinary.com/tanjumart/image/upload/v1750829854/gsap_jgghpo.svg",
-  },
-  {
-    name: "Sophia Williams",
-    role: "Product Manager, Creative Solutions",
-    feedback:
-      "The design, performance optimization, and SEO were spot on. Communication was smooth, and last-minute changes were handled well.",
-    image:
-      "https://res.cloudinary.com/tanjumart/image/upload/v1750829852/antd_evulyb.svg",
-  },
 ];
 
-function Testimonials() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+export default function Testimonials() {
+  const marqueeRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(
-    () => {
-      const q = gsap.utils.selector(sectionRef);
+  useEffect(() => {
+    if (!marqueeRef.current) return;
 
-      // ✅ Heading + Subheading Animation
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-        },
-        defaults: { ease: "expo.out" },
-      });
+    const marquee = marqueeRef.current;
+    const items = marquee.querySelectorAll(".marquee-item");
 
-      tl.from(q(".testimonials-heading"), {
-        x:40,
-        y: 40,
-        autoAlpha: 0,
-        scale: 0.95,
-        duration: 0.8,
-      }).from(
-        q(".testimonials-subheading"),
-        {
-          x: -30,
-          y: 30,
-          autoAlpha: 0,
-          scale: 0.95,
-          duration: 0.6,
-        },
-        "-=0.4"
-      );
+    // ✅ মোট প্রস্থ বের করা
+    const totalWidth = Array.from(items).reduce(
+      (sum, item) => sum + (item as HTMLElement).offsetWidth + 16, // gap সহ
+      0
+    );
 
-      // ✅ Testimonials Card Animation
-      gsap.from(q(".testimonial-card"), {
-        y: 50,
-        autoAlpha: 0,
-        scale: 0.9,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 75%",
-        },
-      });
+    gsap.set(marquee, { x: 0 });
 
-      // ✅ Hover Effect (Premium feel)
-      q(".testimonial-card").forEach((card) => {
-        const element = card as HTMLElement;
-        element.addEventListener("mouseenter", () => {
-          gsap.to(element, {
-            scale: 1.03,
-            boxShadow: "0 8px 25px rgba(0,0,0,0.3)",
-            duration: 0.3,
-          });
-        });
-        element.addEventListener("mouseleave", () => {
-          gsap.to(element, {
-            scale: 1,
-            boxShadow: "0 0 0 rgba(0,0,0,0)",
-            duration: 0.3,
-          });
-        });
-      });
-    },
-    { scope: sectionRef }
-  );
+    // ✅ Marquee Animation + tween save
+    const tween = gsap.to(marquee, {
+      x: -totalWidth / 2,
+      duration: 40,
+      ease: "linear",
+      repeat: -1,
+      modifiers: {
+        x: gsap.utils.unitize((x) => parseFloat(x) % -(totalWidth / 2)),
+      },
+    });
+
+    // ✅ Pause on Hover
+    marquee.addEventListener("mouseenter", () => tween.pause());
+    marquee.addEventListener("mouseleave", () => tween.resume());
+  }, []);
 
   return (
-    <div
-      ref={sectionRef}
-      className="max-w-6xl mx-auto text-white py-20"
-    >
-      <div className="text-center mb-16">
-        <h1 className="testimonials-heading text-3xl md:text-4xl mb-4 font-semibold text-cyan-400">
-          Client Testimonials
-        </h1>
-        <p className="testimonials-subheading text-center text-gray-200 mt-2">
-          What clients say about working together
-        </p>
-      </div>
+    <div className="max-w-6xl mx-auto text-white py-20 overflow-hidden">
+      <h1 className="text-3xl md:text-4xl font-semibold text-cyan-400 text-center mb-8">
+        Client Testimonials
+      </h1>
 
-      {/* Marquee Carousel */}
-      <div className="overflow-hidden relative  ">
-        <div className="flex animate-marquee whitespace-nowrap w-full gap-4 hover:pause-marquee">
+      <div className="relative overflow-hidden">
+        <div
+          ref={marqueeRef}
+          className="flex gap-4 whitespace-nowrap cursor-pointer"
+        >
           {[...testimonials, ...testimonials].map((t, i) => (
             <div
               key={i}
-              className="testimonial-card w-[89vw] sm:w-2xl max-w-[90%] sm:max-w-4xl flex-shrink-0 p-4 rounded-md bg-transparent text-white shadow flex flex-col items-center !border !border-[#031919]"
+              className="marquee-item testimonial-card w-[80vw] sm:w-[720px] flex-shrink-0 p-4 rounded-md border border-[#031919] text-center whitespace-normal break-words"
             >
               <Avatar
                 size={36}
-                src={
-                  <Image src={t.image} alt={t.name} width={36} height={36} />
-                }
+                src={<Image src={t.image} alt={t.name} width={36} height={36} />}
                 className="!mb-4"
               />
-              <p className="text-sm md:text-base leading-relaxed text-center break-words whitespace-normal overflow-visible">
+              <p className="text-sm md:text-base leading-relaxed text-gray-200">
                 {t.feedback}
               </p>
-              <p className="text-cyan-400 text-center mt-6 font-semibold">
-                {t.name}
-              </p>
-              <p className="text-xs text-center text-gray-200">{t.role}</p>
+              <p className="text-cyan-400 mt-4 font-semibold">{t.name}</p>
+              <p className="text-xs text-gray-400">{t.role}</p>
             </div>
           ))}
         </div>
@@ -173,5 +98,3 @@ function Testimonials() {
     </div>
   );
 }
-
-export default Testimonials;

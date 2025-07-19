@@ -9,24 +9,10 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* গ্লো ইফেক্ট */
 }
 
-/* Carousel*/
 
-@keyframes marquee {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
 
-.animate-marquee {
-  animation: marquee 10s linear infinite;
-}
- 
-.hover\:pause-marquee:hover {
-  animation-play-state: paused;
-}
+
+
 
 /* Placeholder Color for All AntD Inputs Globally */
 input::placeholder,
@@ -40,7 +26,7 @@ textarea::placeholder,
 
 /* Border Color for AntD Inputs and Textareas (Default) */
 .ant-input,
-.ant-input-affix-wrapper,
+.ant-input-affix-wrapper, 
 .ant-input-textarea {
   border-color: #22d3ee !important;
 
@@ -169,7 +155,7 @@ select:-webkit-autofill {
 
 /* ✅ শুরুতেই লুকানো থাকবে */
 .anime-text {
-  opacity: 0; 
+  opacity: 0;  
   visibility: hidden;
 }
 
